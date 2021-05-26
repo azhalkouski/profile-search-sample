@@ -1,15 +1,15 @@
 import React from 'react';
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
 import './styles.css';
 
-export function SearchBar({onClick}) {
+export function SearchBar({ onClick }) {
   const inputRef = React.createRef();
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
 
     onClick(inputRef.current.value);
-  }
+  };
 
   return (
     <div className="search-bar__container">
@@ -29,4 +29,4 @@ export function SearchBar({onClick}) {
 
 SearchBar.propTypes = {
   onClick: PropTypes.func.isRequired,
-}
+};

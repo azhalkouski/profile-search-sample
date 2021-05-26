@@ -4,7 +4,7 @@ import {
   Switch,
   Redirect,
   Route,
-} from "react-router-dom"
+} from 'react-router-dom';
 import { Provider } from 'react-redux';
 import './App.css';
 import { store } from './store';
@@ -15,12 +15,12 @@ function App() {
     <Router>
       <Provider store={store}>
         <div className="App">
-        <Switch>
-          <Route path="/github-profiles" component={GithubProfilesPage} />
-          <Route path="/" exact>
-            <Redirect to="/github-profiles" />
-          </Route>
-        </Switch>
+          <Switch>
+            <Route path="/github-profiles" component={GithubProfilesPage} />
+            <Route path="/" exact>
+              <Redirect to="/github-profiles" />
+            </Route>
+          </Switch>
         </div>
       </Provider>
     </Router>

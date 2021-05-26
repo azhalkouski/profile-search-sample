@@ -1,8 +1,8 @@
-import React from "react";
-import { render, fireEvent } from "@testing-library/react";
-import { SearchBar } from "./SearchBar";
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react';
+import { SearchBar } from './SearchBar';
 
-describe("SearchBar", () => {
+describe('SearchBar', () => {
   let props;
 
   beforeEach(() => {
@@ -11,10 +11,8 @@ describe("SearchBar", () => {
     };
   });
 
-  it("renders", () => {
-    const { container } = render(
-      <SearchBar {...props} />
-    );
+  it('renders', () => {
+    const { container } = render(<SearchBar {...props} />);
 
     expect(container).toMatchInlineSnapshot(`
       <div>
@@ -41,25 +39,23 @@ describe("SearchBar", () => {
     `);
   });
 
-  it("calls onClick with input value on form submission", () => {
+  it('calls onClick with input value on form submission', () => {
     const onClickSpy = jest.fn();
-    const { getByRole } = render(
-      <SearchBar {...props} onClick={onClickSpy} />
-    );
+    const { getByRole } = render(<SearchBar {...props} onClick={onClickSpy} />);
 
-    fireEvent.change(getByRole("textbox"), {
-      target: { value: "awesomeuser" },
+    fireEvent.change(getByRole('textbox'), {
+      target: { value: 'awesomeuser' },
     });
 
     fireEvent(
-      getByRole("button"),
-      new MouseEvent("click", {
+      getByRole('button'),
+      new MouseEvent('click', {
         bubbles: true,
         cancelable: true,
       })
     );
 
     expect(onClickSpy).toHaveBeenCalledTimes(1);
-    expect(onClickSpy).toHaveBeenCalledWith("awesomeuser");
+    expect(onClickSpy).toHaveBeenCalledWith('awesomeuser');
   });
 });
