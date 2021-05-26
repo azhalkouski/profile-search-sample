@@ -1,8 +1,11 @@
 import React from 'react';
 import { GithubProfilesContainer } from './GithubProfilesContainer';
+import './GithubProfilesPage.css';
 
 export function GithubProfilesPage() {
   return (
-    <GithubProfilesContainer />
+    <div className="GithubProfilesPage">
+      <GithubProfilesContainer />
+    </div>
   );
 }

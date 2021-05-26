@@ -1,0 +1,25 @@
+.search-bar__container {
+  width: 300px;
+}
+
+.search-bar__form {
+  display: grid;
+  grid-gap: 15px;
+}
+
+.form__input {
+  height: 35px;
+  padding: 0 15px;
+  background-color: #f4f4f4;
+  border-width: thin;
+  border-color: #EEEEEE;
+  border-style: groove;
+}
+
+.form__button {
+  height: 35px;
+  border-style: none;
+  background-color: #08b1ff;
+  color: white;
+  font-size: 15px;
+}

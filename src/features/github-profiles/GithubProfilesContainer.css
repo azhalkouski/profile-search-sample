@@ -1,0 +1,9 @@
+.githubProfilesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.expandableList {
+  width: 300px;
+}
