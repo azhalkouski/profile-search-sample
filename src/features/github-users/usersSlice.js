@@ -1,4 +1,8 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  createEntityAdapter,
+} from '@reduxjs/toolkit';
 import { httpClient } from '../../app/httpClient';
 
 export const fetchUsers = createAsyncThunk(
@@ -18,16 +22,31 @@ export const fetchUsers = createAsyncThunk(
 
 export const fetchRepositories = createAsyncThunk(
   'repositories/fetchRepositories',
-  async (userLogin) => {
-    const response = await httpClient.get(`/users/${userLogin}/repos`);
+  async (user, { getState }) => {
+    const user2 = getState().users.entities[user.id];
+    const response = await httpClient.get(`/users/${user.login}/repos`);
 
-    return response.data;
+    const newUser = {
+      ...user2,
+      repositories: response.data,
+    };
+
+    return newUser;
   }
 );
 
+const usersAdapter = createEntityAdapter();
+
+const initialState = usersAdapter.getInitialState({
+  ids: [],
+  entities: {},
+  usersLoading: false,
+  reposLoading: false,
+});
+
 const usersSlice = createSlice({
   name: 'users',
-  initialState: { entities: [], usersLoading: false, reposLoading: false },
+  initialState,
   reducers: {},
   extraReducers: {
     [fetchUsers.pending]: (state) => {
@@ -35,18 +54,19 @@ const usersSlice = createSlice({
     },
     [fetchUsers.fulfilled]: (state, action) => {
       state.usersLoading = false;
-      state.entities = action.payload;
+
+      usersAdapter.removeAll(state);
+      usersAdapter.addMany(state, action.payload);
     },
     [fetchUsers.rejected]: (state, action) => {
-      state.loading = false;
+      state.usersLoading = false;
     },
     [fetchRepositories.pending]: (state, action) => {
       state.reposLoading = true;
     },
     [fetchRepositories.fulfilled]: (state, action) => {
       state.reposLoading = false;
-      const user = state.entities.find((el) => el.login === action.meta.arg);
-      user.repositories = action.payload;
+      usersAdapter.upsertOne(state, action.payload);
     },
     [fetchRepositories.rejected]: (state, action) => {
       state.reposLoading = false;
@@ -55,3 +75,7 @@ const usersSlice = createSlice({
 });
 
 export default usersSlice.reducer;
+
+export const { selectIds, selectById } = usersAdapter.getSelectors(
+  (state) => state.users
+);

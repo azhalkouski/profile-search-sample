@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRepositories } from '../github-users/usersSlice';
+import { fetchRepositories, selectById } from '../github-users/usersSlice';
 import { RepositoryPreview } from './RepositoryPreview';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -9,19 +9,17 @@ import { Loader } from '../../components/loader';
 
 import './CollapsibleProfileItem.css';
 
-export const CollapsibleProfileItem = ({ user }) => {
+export const CollapsibleProfileItem = ({ userId }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.users.reposLoading);
-  const repositories = useSelector((state) => {
-    const foundUser = state.users.entities.find((el) => el.id === user.id);
+  const user = useSelector((state) => selectById(state, userId));
 
-    return foundUser.repositories;
-  });
+  const repositories = user.repositories || [];
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
-    if (!isOpen) {
-      dispatch(fetchRepositories(user.login));
+    if (!isOpen && repositories.length === 0) {
+      dispatch(fetchRepositories(user));
     }
     setIsOpen(!isOpen);
   };
@@ -54,8 +52,5 @@ export const CollapsibleProfileItem = ({ user }) => {
 };
 
 CollapsibleProfileItem.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    login: PropTypes.string.isRequired,
-  }),
+  userId: PropTypes.number.isRequired,
 };
