@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CollapsibleProfileItem } from './collapsible-profile-item';
 import { Loader } from '../../../components/loader';
+import { USERS_SEARCH_RESULT_LIMIT } from '../constants';
 
 export const SearchResultsList = ({
   searchedUserLogin,
@@ -18,7 +19,7 @@ export const SearchResultsList = ({
         <div className="search-desc">{`Showing users for "${searchedUserLogin}"`}</div>
       )}
       {Array.isArray(usersIds) &&
-        usersIds.map((userId) => {
+        usersIds.slice(0, USERS_SEARCH_RESULT_LIMIT).map((userId) => {
           return <CollapsibleProfileItem key={userId} userId={userId} />;
         })}
     </div>

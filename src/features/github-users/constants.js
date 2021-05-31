@@ -1,0 +1,1 @@
+export const USERS_SEARCH_RESULT_LIMIT = 5;

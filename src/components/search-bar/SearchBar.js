@@ -3,13 +3,23 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './styles.css';
 
+const LOGIN_REGEXP = /^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$/;
+
 export function SearchBar({ onClick, disabled }) {
   const inputRef = React.createRef();
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    const inputValue = inputRef.current.value;
 
-    onClick(inputRef.current.value);
+    if (LOGIN_REGEXP.test(inputValue)) {
+      onClick(inputRef.current.value);
+    } else {
+      // TODO: turn input into a controlled compoenent
+      // validate inputValue on the fly
+      // render elements with something like "Invalid username"
+      console.log('Invalid input value');
+    }
   };
 
   return (
