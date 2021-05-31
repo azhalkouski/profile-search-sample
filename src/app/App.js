@@ -10,9 +10,15 @@ import './App.css';
 import { store } from './store';
 import { GithubProfilesPage } from '../features/github-profiles/GithubProfilesPage';
 
+let routerBaseName;
+
+if (process.env.NODE_ENV !== 'development') {
+  routerBaseName = '/profile-search-sample';
+}
+
 function App() {
   return (
-    <Router>
+    <Router basename={routerBaseName}>
       <Provider store={store}>
         <div className="App">
           <Switch>
