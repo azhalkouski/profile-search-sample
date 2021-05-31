@@ -1,0 +1,1 @@
+export { CollapsibleProfileItem } from './CollapsibleProfileItem';

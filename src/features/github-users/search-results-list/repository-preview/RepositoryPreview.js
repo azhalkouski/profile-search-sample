@@ -3,15 +3,9 @@ import PropTypes from 'prop-types';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import StarIcon from '@material-ui/icons/Star';
 
-import './RepositoryPreview.css';
+import './styles.css';
 
-export const RepositoryPreview = ({
-  repositoryId,
-  name,
-  description,
-  starsCount,
-}) => {
-  console.log('starsCount', starsCount);
+export const RepositoryPreview = ({ name, description, starsCount }) => {
   const StartIcn = starsCount > 0 ? StarIcon : StarBorderIcon;
 
   return (
@@ -30,7 +24,6 @@ export const RepositoryPreview = ({
 };
 
 RepositoryPreview.propTypes = {
-  repositoryId: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string,
   starsCount: PropTypes.number,

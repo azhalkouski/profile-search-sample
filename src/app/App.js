@@ -8,7 +8,7 @@ import {
 import { Provider } from 'react-redux';
 import './App.css';
 import { store } from './store';
-import { GithubProfilesPage } from '../features/github-profiles/GithubProfilesPage';
+import { GithubProfilesPage } from '../features/github-users/GithubProfilesPage';
 
 let routerBaseName;
 

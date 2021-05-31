@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRepositories, selectById } from '../github-users/usersSlice';
-import { RepositoryPreview } from './RepositoryPreview';
+import { fetchRepositories, selectById } from '../../usersSlice';
+import { RepositoryPreview } from '../repository-preview';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import { Loader } from '../../components/loader';
+import { Loader } from '../../../../components/loader';
 
-import './CollapsibleProfileItem.css';
+import './styles.css';
 
 export const CollapsibleProfileItem = ({ userId }) => {
   const dispatch = useDispatch();

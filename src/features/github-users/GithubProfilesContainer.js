@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchUsers, selectIds } from '../github-users/usersSlice';
+import { fetchUsers, selectIds } from './usersSlice';
 import { SearchBar } from '../../components/search-bar';
-import { CollapsibleProfileItem } from './CollapsibleProfileItem';
-import { Loader } from '../../components/loader';
+import { SearchResultsList } from './search-results-list';
 
 import './GithubProfilesContainer.css';
 
@@ -22,17 +21,11 @@ export function GithubProfilesContainer() {
   return (
     <div className="githubProfilesContainer">
       <SearchBar onClick={handleSearch} disabled={isLoading} />
-      <div className="expandableList">
-        {currentSearchValue.length > 0 && (
-          <div className="search-desc">{`Showing users for "${currentSearchValue}"`}</div>
-        )}
-        {isLoading && <Loader />}
-        {!isLoading &&
-          Array.isArray(usersIds) &&
-          usersIds.map((userId) => {
-            return <CollapsibleProfileItem key={userId} userId={userId} />;
-          })}
-      </div>
+      <SearchResultsList
+        searchedUserLogin={currentSearchValue}
+        isLoading={isLoading}
+        usersIds={usersIds}
+      />
     </div>
   );
 }
