@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchUsers } from '../github-users/usersSlice';
 import { SearchBar } from '../../components/search-bar';
+import { RepositoriesList } from './RepositoriesList';
 
 import './GithubProfilesContainer.css';
 
@@ -19,7 +20,7 @@ export function GithubProfilesContainer() {
       <div className="expandableList">
         {Array.isArray(users) &&
           users.map((user) => {
-            return <div key={user.id}>{user.login}</div>;
+            return <RepositoriesList key={user.id} user={user} />;
           })}
       </div>
     </div>

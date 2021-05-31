@@ -1,0 +1,11 @@
+.repositoriesList {
+  padding: 5px;
+  margin: 10px 0;
+  background-color: lightgray;
+}
+
+.previewItem {
+  word-wrap: break-word;
+  margin: 10px 0;
+  background-color: gray;
+}
