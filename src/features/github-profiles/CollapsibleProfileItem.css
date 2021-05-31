@@ -1,0 +1,23 @@
+.repositoriesList {
+  padding-left: 15px;
+}
+
+.profile-container {
+  margin: 10px 0;
+}
+
+.clickable-profile-item {
+  height: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f0;
+}
+
+.clickable-profile-item:hover {
+  cursor: pointer;
+}
+
+.clickable-profile-item > span {
+  padding-left: 5px;
+}

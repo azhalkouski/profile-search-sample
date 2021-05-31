@@ -1,0 +1,33 @@
+.previewItem {
+  height: 120px;
+  overflow: auto;
+  word-wrap: break-word;
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #bfbfbf;
+}
+
+.previewItem .title {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.title p {
+  overflow-wrap: anywhere;
+  margin: 0;
+}
+
+.previewItem .description {
+  margin: 10px 0;
+}
+
+.stars {
+  display: flex;
+  align-items: flex-start;
+}
+
+.stars span {
+  font-size: 18px;
+}

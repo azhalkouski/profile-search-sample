@@ -12,7 +12,7 @@
   padding: 0 15px;
   background-color: #f4f4f4;
   border-width: thin;
-  border-color: #EEEEEE;
+  border-color: #eeeeee;
   border-style: groove;
 }
 
@@ -22,4 +22,8 @@
   background-color: #08b1ff;
   color: white;
   font-size: 15px;
+}
+
+.form__button:hover {
+  cursor: pointer;
 }
