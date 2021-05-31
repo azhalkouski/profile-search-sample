@@ -9,6 +9,7 @@ import './GithubProfilesContainer.css';
 export function GithubProfilesContainer() {
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.entities);
+  const isLoading = useSelector((state) => state.users.loading);
 
   const handleSearch = (username) => {
     dispatch(fetchUsers(username));
@@ -16,7 +17,7 @@ export function GithubProfilesContainer() {
 
   return (
     <div className="githubProfilesContainer">
-      <SearchBar onClick={handleSearch} />
+      <SearchBar onClick={handleSearch} disabled={isLoading} />
       <div className="expandableList">
         {Array.isArray(users) &&
           users.map((user) => {

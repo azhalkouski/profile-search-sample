@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchRepositories } from '../github-repositories/repositoriesSlice';
+import {
+  fetchRepositories,
+  selectRepositoriesByUser,
+} from '../github-repositories/repositoriesSlice';
 import { RepositoryPreview } from './RepositoryPreview';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -10,7 +13,9 @@ import './CollapsibleProfileItem.css';
 
 export const CollapsibleProfileItem = ({ user }) => {
   const dispatch = useDispatch();
-  const repositories = useSelector((state) => state.repositories.entities);
+  const repositories = useSelector((state) =>
+    selectRepositoriesByUser(state, user.id)
+  );
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {

@@ -27,3 +27,7 @@
 .form__button:hover {
   cursor: pointer;
 }
+
+.disabled .form__button {
+  opacity: 0.5;
+}

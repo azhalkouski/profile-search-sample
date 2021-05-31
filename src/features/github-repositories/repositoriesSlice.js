@@ -1,5 +1,16 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {
+  createSlice,
+  createAsyncThunk,
+  createEntityAdapter,
+  createSelector,
+} from '@reduxjs/toolkit';
 import { httpClient } from '../../app/httpClient';
+
+const repositoriesAdapter = createEntityAdapter({
+  selectId: (repo) => repo.id,
+});
+
+const initialState = repositoriesAdapter.getInitialState();
 
 export const fetchRepositories = createAsyncThunk(
   'repositories/fetchRepositories',
@@ -12,14 +23,25 @@ export const fetchRepositories = createAsyncThunk(
 
 const repositoriesSlice = createSlice({
   name: 'repositories',
-  initialState: { entities: [], loading: 'idle' },
+  initialState: initialState,
   reducers: {},
   extraReducers: {
     [fetchRepositories.fulfilled]: (state, action) => {
       state.status = 'succeeded';
-      state.entities = state.entities.concat(action.payload);
+      repositoriesAdapter.upsertMany(state, action.payload);
     },
   },
 });
 
 export default repositoriesSlice.reducer;
+
+export const {
+  selectAll: selectAllRepositories,
+  selectById: selectRepositoryById,
+  selectIds: selectRepositoriesIds,
+} = repositoriesAdapter.getSelectors((state) => state.repositories);
+
+export const selectRepositoriesByUser = createSelector(
+  [selectAllRepositories, (state, userId) => userId],
+  (repos, userId) => repos.filter((repo) => repo.owner.id === userId)
+);

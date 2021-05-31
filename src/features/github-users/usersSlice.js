@@ -18,12 +18,18 @@ export const fetchUsers = createAsyncThunk(
 
 const usersSlice = createSlice({
   name: 'users',
-  initialState: { entities: [], loading: 'idle' },
+  initialState: { entities: [], loading: false },
   reducers: {},
   extraReducers: {
+    [fetchUsers.pending]: (state) => {
+      state.loading = true;
+    },
     [fetchUsers.fulfilled]: (state, action) => {
-      state.status = 'succeeded';
-      state.entities = state.entities.concat(action.payload);
+      state.loading = false;
+      state.entities = action.payload;
+    },
+    [fetchUsers.rejected]: (state, action) => {
+      state.loading = false;
     },
   },
 });
