@@ -16,20 +16,40 @@ export const fetchUsers = createAsyncThunk(
   }
 );
 
+export const fetchRepositories = createAsyncThunk(
+  'repositories/fetchRepositories',
+  async (userLogin) => {
+    const response = await httpClient.get(`/users/${userLogin}/repos`);
+
+    return response.data;
+  }
+);
+
 const usersSlice = createSlice({
   name: 'users',
-  initialState: { entities: [], loading: false },
+  initialState: { entities: [], usersLoading: false, reposLoading: false },
   reducers: {},
   extraReducers: {
     [fetchUsers.pending]: (state) => {
-      state.loading = true;
+      state.usersLoading = true;
     },
     [fetchUsers.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.usersLoading = false;
       state.entities = action.payload;
     },
     [fetchUsers.rejected]: (state, action) => {
       state.loading = false;
+    },
+    [fetchRepositories.pending]: (state, action) => {
+      state.reposLoading = true;
+    },
+    [fetchRepositories.fulfilled]: (state, action) => {
+      state.reposLoading = false;
+      const user = state.entities.find((el) => el.login === action.meta.arg);
+      user.repositories = action.payload;
+    },
+    [fetchRepositories.rejected]: (state, action) => {
+      state.reposLoading = false;
     },
   },
 });
