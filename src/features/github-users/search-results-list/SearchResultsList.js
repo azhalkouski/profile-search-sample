@@ -29,5 +29,5 @@ export const SearchResultsList = ({
 SearchResultsList.propTypes = {
   searchedUserLogin: PropTypes.string,
   isLoading: PropTypes.bool,
-  usersIds: PropTypes.arrayOf(PropTypes.string),
+  usersIds: PropTypes.arrayOf(PropTypes.number),
 };
